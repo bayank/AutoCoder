@@ -1,20 +1,28 @@
 # AutoCoder/.github/workflows/first_workflow.yml
 
-name: First Workflow
+name: Main Workflow
 
 on: push
 
 jobs:
-  say-hello:
-    name: Name of first step
+  access_issue_info:
+    name: Stage 3
     runs-on: ubuntu-latest
     steps:
       #step 1
       - name: Checkout Code
         uses: actions/checkout@v2.3.4
       #step 2
-      - name: Greeting Message
-        run: echo "Hello, world!"
+      - name: Print Issue Information
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          Issue Body: ${{ github.event.issue.body }}
+          Issue Assignees: ${{ join(github.event.issue.assignees.*.login, ', ') }}
+          Issue Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}
+        run: |
+          echo "Issue Number: ${ISSUE_NUMBER}"
+          ISSUE_RESPONSE=$(curl -s https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER)
+          echo "Issue Information: $ISSUE_RESPONSE"
 
 #  second-job:
 #    strategy:
@@ -26,3 +34,15 @@ jobs:
 #      - uses: actions/setup-node@v3
 #        with:
 #          node-version: ${{ matrix.runtimes }}
+
+
+
+jobs:
+  access_issue_info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Issue Information
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          echo "Issue Number: ${ISSUE_NUMBER}"
