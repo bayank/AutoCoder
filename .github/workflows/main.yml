@@ -5,26 +5,24 @@ name: First Workflow
 on: push
 
 jobs:
-
-  first-job:
+  say-hello:
     name: Name of first step
     runs-on: ubuntu-latest
     steps:
-
       #step 1
-      - name: Print a greeting
-        run: echo Hi from our first workflow!
-
+      - name: Checkout Code
+        uses: actions/checkout@v2.3.4
       #step 2
-      - uses: actions/checkout@v2.3.4
+      - name: Greeting Message
+        run: echo "Hello, world!"
 
-  second-job:
-    strategy:
-      matrix:
-        runtimes: [10, 12, 14]
-        os_version: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os_version}}
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.runtimes }}
+#  second-job:
+#    strategy:
+#      matrix:
+#        runtimes: [10, 12, 14]
+#        os_version: [ubuntu-latest, windows-latest]
+#    runs-on: ${{ matrix.os_version}}
+#    steps:
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ matrix.runtimes }}
