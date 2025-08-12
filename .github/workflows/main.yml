@@ -34,15 +34,3 @@ jobs:
 #      - uses: actions/setup-node@v3
 #        with:
 #          node-version: ${{ matrix.runtimes }}
-
-
-
-jobs:
-  access_issue_info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Issue Information
-        env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: |
-          echo "Issue Number: ${ISSUE_NUMBER}"
