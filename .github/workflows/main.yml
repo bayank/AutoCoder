@@ -2,7 +2,9 @@
 
 name: Main Workflow
 
-on: issues
+on:
+  issues:
+    types: [opened, reopened]
 jobs:
   access_issue_info:
     name: Stage 3
